@@ -60,7 +60,7 @@ class RockMailerSend extends WireData implements Module, ConfigurableModule
         ];
       }
       $vars[] = (object)[
-        'email' => $mailto,
+        'email' => $mailto->email,
         'substitutions' => $subs,
       ];
     }
@@ -82,12 +82,12 @@ class RockMailerSend extends WireData implements Module, ConfigurableModule
     if ($this->tpl) $data['template_id'] = $this->tpl;
 
     // set variables (replacements)?
-    // if (count($this->vars)) {
-    //   $data['variables'] = $this->buildReplacementsArray();
-    // }
+    if (count($this->vars)) {
+      $data['variables'] = $this->buildReplacementsArray();
+    }
 
     // send mail
-    bd($data, 'send mail');
+    // bdb($data, 'send mail');
     return $this->api()->post("/email", $data);
   }
 
